@@ -64,6 +64,8 @@
     <Compile Include="Assets\GameFolders\Scripts\Managers\EventManager.cs" />
     <Compile Include="Assets\GameFolders\Scripts\Controllers\GameController.cs" />
     <Compile Include="Assets\GameFolders\Scripts\Controllers\CameraController.cs" />
+    <Compile Include="Assets\GameFolders\Scripts\General\MonoSingleton.cs" />
+    <Compile Include="Assets\GameFolders\Scripts\Components\ObjectPool.cs" />
     <Compile Include="Assets\GameFolders\Scripts\General\Constants.cs" />
     <Compile Include="Assets\GameFolders\Scripts\Managers\SoundManager.cs" />
     <Compile Include="Assets\GameFolders\Scripts\Interfaces\IGameState.cs" />

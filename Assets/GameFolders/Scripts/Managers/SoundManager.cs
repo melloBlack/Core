@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : MonoSingleton<SoundManager>
 {
-    private static SoundManager _instance;
-
-    public static SoundManager Instance { get { return _instance; } set { _instance = value; } }
-
-    [GUIColor(.2f, 1f, 1f)]
-    [SerializeField] SoundData data;
+    [GUIColor(.2f, 1f, 1f)] [SerializeField] SoundData data;
+  
+    [GUIColor(.5f, 0.9f, 1f)] [Title("")][SerializeField] int maxMultipleSound;
 
     Dictionary<string, float> volume = new Dictionary<string, float>();
     Dictionary<string, AudioClip> clip = new Dictionary<string, AudioClip>();
@@ -19,17 +16,7 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-
-        audioSources = GetComponentsInChildren<AudioSource>();
+        Singleton(true);
     }
 
     private void Start()
@@ -39,6 +26,14 @@ public class SoundManager : MonoBehaviour
             volume.Add(soundClip.Name, soundClip.Volume);
             clip.Add(soundClip.Name, soundClip.Clip);
         }
+
+        for (int i = 0; i < maxMultipleSound; i++)
+        {
+            GameObject audioSource = new GameObject();
+            audioSource.AddComponent<AudioSource>();
+            audioSource.transform.parent = this.transform;
+        }
+        audioSources = GetComponentsInChildren<AudioSource>();
     }
 
     public void Play(string name)

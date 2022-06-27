@@ -2,15 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour, IGameState
+public class GameController : MonoSingleton<GameController>, IGameState
 {
-    static GameController _instance;
-
-    public static GameController Instance => _instance;
-
     private void Awake()
     {
-        _instance = this;
+        Singleton();
     }
     private void Start()
     {
@@ -20,31 +16,6 @@ public class GameController : MonoBehaviour, IGameState
     {
         RemoveListeners();
     }
-
-    #region Members
-
-    PlayerController _playerController;
-    public PlayerController PlayerController
-    {
-        get { return _playerController; }
-        set { _playerController = value; }
-    }
-
-    CameraController _cameraController;
-    public CameraController CameraController
-    {
-        get { return _cameraController; }
-        set { _cameraController = value; }
-    }
-
-    UIController _uiController;
-    public UIController UIController
-    {
-        set { _uiController = value; }
-        get { return _uiController; }
-    }
-
-    #endregion
 
     #region EM Listeners Game States
 

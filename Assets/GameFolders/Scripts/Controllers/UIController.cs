@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using TMPro;
 
-public class UIController : MonoBehaviour, IGameState
+public class UIController : MonoSingleton<UIController>, IGameState
 {
     #region Fields and Properties
 
@@ -25,6 +25,11 @@ public class UIController : MonoBehaviour, IGameState
     #endregion
 
     #region MonoBehaviour Methods
+
+    private void Awake()
+    {
+        Singleton();
+    }
 
     private void Start()
     {
@@ -111,8 +116,6 @@ public class UIController : MonoBehaviour, IGameState
         startPanel.SetActive(true);
         victoryPanel.SetActive(false);
         gameOverPanel.SetActive(false);
-
-        GameController.Instance.UIController = this;
     }
 
     public void AddListeners()

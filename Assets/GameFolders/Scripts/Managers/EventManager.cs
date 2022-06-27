@@ -5,31 +5,15 @@ using UnityEngine;
 public delegate void GameStateHandler();
 public delegate void LevelStateHandler();
 
-public class EventManager : MonoBehaviour
+public class EventManager : MonoSingleton<EventManager>
 {
-    static EventManager _instance;
-    public static EventManager Instance => _instance;
-
     public event GameStateHandler GamePlayHandler;
     public event GameStateHandler GameOverHandler;
     public event GameStateHandler GameFinishHandler;
 
     private void Awake()
     {
-        Singleton();
-    }
-
-    void Singleton()
-    {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        Singleton(true);
     }
 
     public void TriggerPlayStage()

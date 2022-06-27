@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour, IGameState
+public class CameraController : MonoSingleton<CameraController>, IGameState
 {
     #region Fields and Properties
 
@@ -13,6 +13,10 @@ public class CameraController : MonoBehaviour, IGameState
     #region MonoBehaviour Methods
 
     private void Awake()
+    {
+        Singleton();
+    }
+    private void Start()
     {
         Initiation();
     }
@@ -51,7 +55,6 @@ public class CameraController : MonoBehaviour, IGameState
     void Initiation()
     {
         AddListeners();
-        GameController.Instance.CameraController = this;
     }
 
     public void AddListeners()

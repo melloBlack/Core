@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IGameState
+public class PlayerController : MonoSingleton<PlayerController>, IGameState
 {
     #region Fields an Properties
 
@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour, IGameState
 
     private void Awake()
     {
-
+        Singleton();
     }
     private void Start()
     {
@@ -55,7 +55,6 @@ public class PlayerController : MonoBehaviour, IGameState
     void Initiation()
     {
         AddListeners();
-        GameController.Instance.PlayerController = this;
     }
 
     public void AddListeners()

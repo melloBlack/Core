@@ -4,11 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Sirenix.OdinInspector;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoSingleton<GameManager>
 {
-    static GameManager _instance;
-    public static GameManager Instance => _instance;
-
     #region Game State
 
     Enums.GameState _gameState = Enums.GameState.Pause;
@@ -86,7 +83,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        Singleton();
+        Singleton(true);
     }
 
     private void Start()
@@ -94,19 +91,6 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             NextLevel();
-        }
-    }
-
-    void Singleton()
-    {
-        if (Instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
         }
     }
 
